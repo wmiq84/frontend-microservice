@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 )
 
 // renders frontend for root page
@@ -15,7 +16,7 @@ func main() {
 	})
 
 	fmt.Println("Starting front end service on port 80")
-	err := http.ListenAndServe(":80", nil)
+	err := http.ListenAndServe(":8081", nil)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -59,8 +60,8 @@ func render(w http.ResponseWriter, t string) {
 		BrokerURL string
 	}
 
-	data.BrokerURL = "http://localhost:8080"
-	// data.BrokerURL = os.Getenv("BROKER_URL")
+	// data.BrokerURL = "http://localhost:8080"
+	data.BrokerURL = os.Getenv("BROKER_URL")
 
 	// second parameter stores data that we want available to template
 	// allows us to access data in templates
